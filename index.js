@@ -1,4 +1,5 @@
 var documentReady = require('document-ready')
+var nanotiming = require('nanotiming')
 var nanorouter = require('nanorouter')
 var nanomount = require('nanomount')
 var nanomorph = require('nanomorph')
@@ -20,16 +21,14 @@ function Choo (opts) {
 
   // properties for internal use only
   this._historyEnabled = opts.history === undefined ? true : opts.history
-  this._timingEnabled = opts.timing === undefined ? true : opts.timing
   this._hrefEnabled = opts.href === undefined ? true : opts.href
-  this._hasWindow = typeof window !== 'undefined'
-  this._hasPerformance = this._hasWindow && window.performance && window.performance.mark
+  this._timing = nanotiming('choo')
   this._rerender = null
   this._tree = null
 
   // properties that are part of the API
   this.router = nanorouter(routerOpts)
-  this.emitter = nanobus('choo-emitter')
+  this.emitter = nanobus('choo.emitter')
   this.state = {}
 }
 
@@ -46,23 +45,23 @@ Choo.prototype.route = function (route, handler) {
 }
 
 Choo.prototype.use = function (cb) {
+  this._timing.start('use')
   cb(this.state, this.emitter)
+  this._timing.end('use')
 }
 
 Choo.prototype.start = function () {
   var self = this
 
+  self._timing.start('render')
   this._tree = this.router(this._createLocation())
+  self._timing.end('render')
+
   this._rerender = nanoraf(function () {
-    if (self._hasPerformance && self._timingEnabled) {
-      window.performance.mark('choo:renderStart')
-    }
+    self._timing.start('render')
     var newTree = self.router(self._createLocation())
     self._tree = nanomorph(self._tree, newTree)
-    if (self._hasPerformance && self._timingEnabled) {
-      window.performance.mark('choo:renderEnd')
-      window.performance.measure('choo:render', 'choo:renderStart', 'choo:renderEnd')
-    }
+    self._timing.end('render')
   })
 
   this.emitter.prependListener('render', this._rerender)
