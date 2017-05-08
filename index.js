@@ -30,7 +30,7 @@ function Choo (opts) {
 
   // properties that are part of the API
   this.router = nanorouter(routerOpts)
-  this.emitter = nanobus()
+  this.emitter = nanobus('choo-emitter')
   this.state = {}
 }
 
