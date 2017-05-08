@@ -1,5 +1,4 @@
 var documentReady = require('document-ready')
-var nanohistory = require('nanohistory')
 var nanorouter = require('nanorouter')
 var nanomount = require('nanomount')
 var nanomorph = require('nanomorph')
@@ -69,9 +68,9 @@ Choo.prototype.start = function () {
   this.emitter.prependListener('render', this._rerender)
 
   if (this._historyEnabled) {
-    nanohistory(function (href) {
+    window.onpopstate = function () {
       self.emitter.emit('pushState')
-    })
+    }
 
     this.emitter.prependListener('pushState', function (href) {
       if (href) window.history.pushState({}, null, href)
