@@ -1,7 +1,6 @@
 var documentReady = require('document-ready')
 var nanotiming = require('nanotiming')
 var nanorouter = require('nanorouter')
-var nanomount = require('nanomount')
 var nanomorph = require('nanomorph')
 var nanohref = require('nanohref')
 var nanoraf = require('nanoraf')
@@ -102,7 +101,12 @@ Choo.prototype.mount = function mount (selector) {
   documentReady(function () {
     var root = document.querySelector(selector)
     assert.ok(root, 'choo.mount: could not query selector: ' + selector)
-    nanomount(root, newTree)
+    var resultTree = nanomorph(root, newTree)
+
+    assert.equal(resultTree, newTree, 'choo.mount: The target node ' +
+      resultTree.nodeName + ' is not the same type as the new node ' +
+      newTree.nodeName + '.')
+
     self._tree = root
   })
 }
