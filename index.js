@@ -97,8 +97,8 @@ Choo.prototype.start = function () {
 
 Choo.prototype.mount = function mount (selector) {
   var self = this
-  var newTree = this.start()
   documentReady(function () {
+    var newTree = self.start()
     var root = document.querySelector(selector)
     assert.ok(root, 'choo.mount: could not query selector: ' + selector)
     var resultTree = nanomorph(root, newTree)
