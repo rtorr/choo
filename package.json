@@ -4,7 +4,7 @@
   "description": "A 4kb framework for creating sturdy frontend applications",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir -p dist/ && babel index.js > index.min.js"
+    "build": "babel index.js > index.min.js"
   },
   "babel": {
     "presets": [
@@ -21,17 +21,6 @@
     "tiny"
   ],
   "license": "MIT",
-  "dependencies": {
-    "bel": "^4.5.1",
-    "document-ready": "^2.0.1",
-    "nanobus": "^3.1.0",
-    "nanohistory": "^1.0.0",
-    "nanohref": "^1.0.0",
-    "nanomorph": "^4.0.0",
-    "nanomount": "^1.0.0",
-    "nanoraf": "^3.0.0",
-    "nanorouter": "^2.0.0"
-  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-babili": "0.0.12"

@@ -1,12 +1,12 @@
-import documentReady from 'document-ready'
-import nanohistory from 'nanohistory'
-import nanorouter from 'nanorouter'
-import nanomount from 'nanomount'
-import nanomorph from 'nanomorph'
-import nanohref from 'nanohref'
-import nanoraf from 'nanoraf'
-import nanobus from 'nanobus'
-import assert from 'assert'
+import documentReady from 'https://github.com/rtorr/document-ready/blob/master/index.min.js'
+import nanohistory from 'https://github.com/rtorr/nanohistory/blob/master/index.min.js'
+import nanorouter from 'https://github.com/rtorr/nanorouter/blob/master/index.min.js'
+import nanomount from 'https://github.com/rtorr/nanomount/blob/master/index.min.js'
+import nanomorph from 'https://github.com/rtorr/nanomorph/blob/master/index.min.js'
+import nanohref from 'https://github.com/rtorr/nanohref/blob/master/index.min.js'
+import nanoraf from 'https://github.com/rtorr/nanoraf/blob/master/index.min.js'
+import nanobus from 'https://github.com/rtorr/nanobus/blob/master/index.min.js'
+import assert from 'https://github.com/rtorr/assert/blob/master/index.min.js'
 
 export default function Choo (opts) {
   opts = opts || {}
