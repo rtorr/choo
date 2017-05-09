@@ -244,7 +244,7 @@ Initialize a new `choo` instance. `opts` can also contain the following values:
 - __opts.href:__ default: `true`. Handle all relative `<a
   href="<location>"></a>` clicks and call `emit('render')`
 
-### `app.use(callback(state, emitter))`
+### `app.use(callback(state, emitter, app))`
 Call a function and pass it a `state` and `emitter`. `emitter` is an instance
 of [nanobus](https://github.com/yoshuawuyts/nanobus/). You can listen to
 messages by calling `emitter.on()` and emit messages by calling `emitter.emit()`.
@@ -254,11 +254,17 @@ Choo fires messages when certain events happen:
 - __`.on('render')`__: when the DOM re-renders
 - __`.on('pushState')`__: when the history API is triggered
 
-The `render` event should be emitted (`emitter.emit('render')`) whenever you want the app to re-render the DOM - it won't happen on its own except when you navigate between routes.
+The `render` event should be emitted (`emitter.emit('render')`) whenever you
+want the app to re-render the DOM - it won't happen on its own except when you
+navigate between routes.
 
-The `pushState` can be emitted to navigate between routes: `emitted.emit('pushState', '/some/route')`.
+The `pushState` can be emitted to navigate between routes:
+`emitted.emit('pushState', '/some/route')`.
 
-Both `render` and `pushState` will only have an effect once the `DOMContentLoaded` event has been fired.
+Both `render` and `pushState` will only have an effect once the
+`DOMContentLoaded` event has been fired.
+
+The third argument is the `app` instance itself.
 
 ### `app.route(routeName, handler)`
 Register a route on the router. Uses [nanorouter][nanorouter] under the hood.

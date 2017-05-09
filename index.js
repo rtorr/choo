@@ -48,7 +48,7 @@ Choo.prototype.route = function (route, handler) {
 
 Choo.prototype.use = function (cb) {
   this._timing.start('use')
-  cb(this.state, this.emitter)
+  cb(this.state, this.emitter, this)
   this._timing.end('use')
 }
 
