@@ -121,7 +121,9 @@ Choo.prototype.mount = function mount (selector) {
     var newTree = self.start()
     var root = document.querySelector(selector)
     assert.ok(root, 'choo.mount: could not query selector: ' + selector)
+    self._timing.start('render.morph')
     var resultTree = nanomorph(root, newTree)
+    self._timing.end('render.morph')
 
     assert.equal(resultTree, newTree, 'choo.mount: The target node ' +
       resultTree.nodeName + ' is not the same type as the new node ' +
