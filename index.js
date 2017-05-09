@@ -54,6 +54,9 @@ Choo.prototype.use = function (cb) {
 
 Choo.prototype.start = function () {
   this._timing.start('start')
+
+  assert.equal(typeof window, 'object', 'choo.start: window was not found. .start() must be called in a browser, use .toString() if running in Node')
+
   var self = this
 
   var hasPerformance = typeof window !== 'undefined' && window.performance && window.performance.clearResourceTimings
@@ -110,7 +113,10 @@ Choo.prototype.start = function () {
 }
 
 Choo.prototype.mount = function mount (selector) {
+  assert.equal(typeof window, 'object', 'choo.mount: window was not found. .mount() must be called in a browser, use .toString() if running in Node')
+
   var self = this
+
   documentReady(function () {
     var newTree = self.start()
     var root = document.querySelector(selector)
