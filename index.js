@@ -1,16 +1,14 @@
-var documentReady = require('document-ready')
-var nanohistory = require('nanohistory')
-var nanorouter = require('nanorouter')
-var nanomount = require('nanomount')
-var nanomorph = require('nanomorph')
-var nanohref = require('nanohref')
-var nanoraf = require('nanoraf')
-var nanobus = require('nanobus')
-var assert = require('assert')
+import documentReady from 'document-ready'
+import nanohistory from 'nanohistory'
+import nanorouter from 'nanorouter'
+import nanomount from 'nanomount'
+import nanomorph from 'nanomorph'
+import nanohref from 'nanohref'
+import nanoraf from 'nanoraf'
+import nanobus from 'nanobus'
+import assert from 'assert'
 
-module.exports = Choo
-
-function Choo (opts) {
+export default function Choo (opts) {
   opts = opts || {}
 
   var routerOpts = {
@@ -66,7 +64,7 @@ function Choo (opts) {
 
     bus.prependListener('render', rerender)
 
-    if (opts.history !== false) {
+    if (opts.history !=false) {
       nanohistory(function (href) {
         bus.emit('pushState')
       })
@@ -79,7 +77,7 @@ function Choo (opts) {
         }, 0)
       })
 
-      if (opts.href !== false) {
+      if (opts.href !=false) {
         nanohref(function (location) {
           var href = location.href
           var currHref = window.location.href
