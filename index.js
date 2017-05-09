@@ -36,9 +36,12 @@ Choo.prototype.route = function (route, handler) {
   this.router.on(route, function (params) {
     return function () {
       self.state.params = params
-      return handler(self.state, function (eventName, data) {
+      self._timing.start('route["' + route + '"]')
+      var res = handler(self.state, function (eventName, data) {
         self.emitter.emit(eventName, data)
       })
+      self._timing.end('route["' + route + '"]')
+      return res
     }
   })
 }
@@ -50,7 +53,15 @@ Choo.prototype.use = function (cb) {
 }
 
 Choo.prototype.start = function () {
+  this._timing.start('start')
   var self = this
+
+  var hasPerformance = typeof window !== 'undefined' && window.performance && window.performance.clearResourceTimings
+  if (hasPerformance && !window.performance.onresourcetimingbufferfull) {
+    window.performance.onresourcetimingbufferfull = function () {
+      window.performance.clearResourceTimings()
+    }
+  }
 
   self._timing.start('render')
   this._tree = this.router(this._createLocation())
@@ -59,7 +70,9 @@ Choo.prototype.start = function () {
   this._rerender = nanoraf(function () {
     self._timing.start('render')
     var newTree = self.router(self._createLocation())
+    self._timing.start('render.morph')
     self._tree = nanomorph(self._tree, newTree)
+    self._timing.end('render.morph')
     self._timing.end('render')
   })
 
@@ -92,6 +105,7 @@ Choo.prototype.start = function () {
     self.emitter.emit('DOMContentLoaded')
   })
 
+  self._timing.end('start')
   return this._tree
 }
 

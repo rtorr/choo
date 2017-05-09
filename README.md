@@ -243,11 +243,6 @@ Initialize a new `choo` instance. `opts` can also contain the following values:
   history API.
 - __opts.href:__ default: `true`. Handle all relative `<a
   href="<location>"></a>` clicks and call `emit('render')`
-- __opts.timing:__ default: `true`. Enables calls to the
-  [window.performance][window-performance] timing API. Timing calls will not
-  run in browsers that don't support it out of the box. The timing marks are
-  `choo:renderStart`, `choo:renderEnd`. The resulting diff is stored as
-  `choo:render`.
 
 ### `app.use(callback(state, emitter))`
 Call a function and pass it a `state` and `emitter`. `emitter` is an instance
